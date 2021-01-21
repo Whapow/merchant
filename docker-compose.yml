@@ -1,0 +1,10 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:5.7.32
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: merchant_app
+    ports:
+      - "3307:3306"
