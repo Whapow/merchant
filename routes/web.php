@@ -24,3 +24,7 @@ Route::get('shops/{shop}', 'ShopsController@show');
 Route::get('shops/{shop}/edit', 'ShopsController@edit');
 Route::post('shops/{shop}/update', 'ShopsController@update');
 Route::get('shops/{shop}/delete', 'ShopsController@delete');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
