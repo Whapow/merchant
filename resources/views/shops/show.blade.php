@@ -8,12 +8,16 @@
     <div class="col-md-8">
         <div class="card card-default">
             <div class="card-header">
-                Items
+                <span>Items</span>
+                {{-- <i class="plus-circle-fill"></i> --}}
+                <span class="float-right">{{ $shop->gold }}</span>
             </div>
             <div class="card-body">
                 <ul class="list-group">
                 </ul>
             </div>
+            <a class="btn btn-info my-2" href="/shops/{{$shop->id}}/edit">Edit</a>
+            <a class="btn btn-danger my-2" href="/shops/{{$shop->id}}/delete">Delete</a>
         </div>
     </div>
 </div>

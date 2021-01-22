@@ -18,4 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('shops', 'ShopsController@index');
+Route::get('shops/new', 'ShopsController@new');
+Route::post('shops/create', 'ShopsController@create');
 Route::get('shops/{shop}', 'ShopsController@show');
+Route::get('shops/{shop}/edit', 'ShopsController@edit');
+Route::post('shops/{shop}/update', 'ShopsController@update');
+Route::get('shops/{shop}/delete', 'ShopsController@delete');
