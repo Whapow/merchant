@@ -17,14 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('shops', 'ShopsController@index');
-Route::get('shops/new', 'ShopsController@new');
-Route::post('shops/create', 'ShopsController@create');
-Route::get('shops/{shop}', 'ShopsController@show');
-Route::get('shops/{shop}/edit', 'ShopsController@edit');
-Route::post('shops/{shop}/update', 'ShopsController@update');
-Route::get('shops/{shop}/delete', 'ShopsController@delete');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('shops', 'ShopsController');
+Route::get('trashed-shops', 'ShopsController@trashed')->name('shops.trashed');
+Route::put('shops/{shop}/restore', 'ShopsController@restore')->name('shops.restore');

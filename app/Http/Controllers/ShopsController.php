@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Shop;
 use Illuminate\Http\Request;
+use App\Http\Requests\Shops\CreateShopsRequest;
+use App\Http\Requests\Shops\UpdateShopsRequest;
 
 class ShopsController extends Controller
 {
@@ -12,21 +14,16 @@ class ShopsController extends Controller
         return view('shops.index')->with('shops', Shop::all());
     }
 
-    public function new(){
-        return view('shops.new');
+    public function create(){
+        return view('shops.edit');
     }
 
-    public function create(){
+    public function store(Request $request){
         // return view('shops.index');
-        $this->validate(request(), [
-            'name' => 'required|unique:shops'
+        Shop::create([
+            'name' => $request->name,
+            'gold' => ($request->gold || 0)
         ]);
-        $data = request()->all();
-        $shop = new Shop();
-        $shop->name = $data['name'];
-        $shop->gold = 0;
-
-        $shop->save();
         session()->flash('success', 'Shop created successfully.');
         
         return redirect('/shops');
@@ -41,24 +38,43 @@ class ShopsController extends Controller
         return view('shops.edit')->with('shop', $shop);
     }
     
-    public function update(Shop $shop){
+    public function update(UpdateShopsRequest $request, Shop $shop){
         $this->validate(request(), [
             'name' => 'required|unique:shops'
         ]);
-        $data = request()->all();
-        $shop->name = $data['name'];
-        $shop->gold = 0;
+        $shop->update([
+            'name' => $request->name,
+            'gold' => ($request->gold || 0)
+        ]);
 
-        $shop->save();
         session()->flash('success', 'Shop updated successfully.');
 
         return redirect("/shops/{$shop->id}")->with('shop', $shop);
     }
     
-    public function delete(Shop $shop){
-        $shop->delete();
+    public function destroy($id){
+        $shop = Shop::withTrashed()->where('id', $id)->firstOrFail();
+        if ($shop->trashed()){
+            $shop->forceDelete();
+        } else {
+            $shop->delete();
+        }
         session()->flash('success', 'Shop deleted successfully.');
 
-        return redirect("/shops");
+        return redirect(route('shops.index'));
+    }
+
+    public function trashed(){
+        $trashed = Shop::onlyTrashed()->get();
+        return view('shops.index')->with('shops', $trashed);
+    }
+
+    public function restore($id){
+        $shop = Shop::withTrashed()->where('id', $id)->firstOrFail();
+
+        $shop->restore();
+        session()->flash('success', 'Shop restored successfully.');
+
+        return redirect(route('shops.index'));
     }
 }

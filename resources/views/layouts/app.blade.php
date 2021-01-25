@@ -16,14 +16,33 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/shops">Shops</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/shops/new">Create Shop</a>
-                        </li>
-                    </ul>
+                    @auth
+                        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('shops.index') }}">Shops</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('shops.trashed') }}">Trashed Shops</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('shops.create') }}">Create Shop</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                            <a class="nav-link" href="#">Logout</a>
+                        </ul>
+                    @else
+                        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                            @endif
+                        </ul>
+                    @endauth
                 </div>
             </div>
         </nav>
@@ -33,7 +52,28 @@
                     {{ session()->get('success') }}
                 </div>
             @endif
-            @yield('content')
+            <div class="row">
+                <div class="col-md-12">
+                    @yield('header')
+                </div>
+            </div>
+            @auth
+                {{-- <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Shops
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8"> --}}
+                        @yield('content')
+                    {{-- </div>
+                </div> --}}
+            @else
+                @yield('content')
+            @endauth
         </div>
+        @yield('scripts')
     </body>
 </html>

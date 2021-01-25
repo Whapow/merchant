@@ -2,8 +2,10 @@
 @section('title')
 <title>{{ $shop->name }}</title>
 @endsection
+@section('header')
+    <h1 class='text-center my-5'> {{ $shop->name }} </h1>
+@endsection
 @section('content')
-<h1 class='text-center my-5'> {{ $shop->name }} </h1>
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card card-default">
@@ -16,8 +18,6 @@
                 <ul class="list-group">
                 </ul>
             </div>
-            <a class="btn btn-info my-2" href="/shops/{{$shop->id}}/edit">Edit</a>
-            <a class="btn btn-danger my-2" href="/shops/{{$shop->id}}/delete">Delete</a>
         </div>
     </div>
 </div>

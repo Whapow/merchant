@@ -17,6 +17,7 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('gold');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
