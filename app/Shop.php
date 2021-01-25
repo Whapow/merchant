@@ -10,4 +10,8 @@ class Shop extends Model
     use SoftDeletes;
     protected $fillable = ['name', 'gold'];
 
+    public function inventories(){
+        $this->morphMany(Inventory::class, 'owner');
+    }
+
 }
