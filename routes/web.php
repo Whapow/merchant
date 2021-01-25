@@ -22,5 +22,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('shops', 'ShopsController');
-Route::get('trashed-shops', 'ShopsController@trashed')->name('shops.trashed');
+Route::get('shop-trash', 'ShopsController@trash')->name('shops.trash');
 Route::put('shops/{shop}/restore', 'ShopsController@restore')->name('shops.restore');
+
+Route::resource('items', 'ItemsController');
+Route::get('item-trash', 'ItemsController@trash')->name('items.trash');
+Route::put('items/{item}/restore', 'ItemsController@restore')->name('items.restore');

@@ -22,11 +22,28 @@
                                 <a class="nav-link" href="{{ route('shops.index') }}">Shops</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('shops.trashed') }}">Trashed Shops</a>
+                                <a class="nav-link" href="{{ route('items.index') }}">Items</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('shops.create') }}">Create Shop</a>
-                            </li>
+                            <div class="btn-group">
+                                <button type="button" class="btn">Shops</button>
+                                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only"></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="{{ route('shops.create') }}">Create New</a>
+                                  <a class="dropdown-item" href="{{ route('shops.trash') }}">View Trash</a>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn">Items</button>
+                                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only"></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="{{ route('items.create') }}">Create New</a>
+                                  <a class="dropdown-item" href="{{ route('items.trash') }}">View Trash</a>
+                                </div>
+                            </div>
                         </ul>
                         <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                             <a class="nav-link" href="#">Logout</a>
