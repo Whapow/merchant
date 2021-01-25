@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Shop;
 use Illuminate\Http\Request;
-use App\Http\Requests\Shops\CreateShopsRequest;
-use App\Http\Requests\Shops\UpdateShopsRequest;
+use App\Http\Requests\Shops\CreateShopRequest;
+use App\Http\Requests\Shops\UpdateShopRequest;
 
 class ShopsController extends Controller
 {
@@ -18,7 +18,7 @@ class ShopsController extends Controller
         return view('shops.edit');
     }
 
-    public function store(Request $request){
+    public function store(CreateShopRequest $request){
         // return view('shops.index');
         Shop::create([
             'name' => $request->name,
@@ -38,7 +38,7 @@ class ShopsController extends Controller
         return view('shops.edit')->with('shop', $shop);
     }
     
-    public function update(UpdateShopsRequest $request, Shop $shop){
+    public function update(UpdateShopRequest $request, Shop $shop){
         $this->validate(request(), [
             'name' => 'required|unique:shops'
         ]);
@@ -64,7 +64,7 @@ class ShopsController extends Controller
         return redirect(route('shops.index'));
     }
 
-    public function trashed(){
+    public function trash(){
         $trashed = Shop::onlyTrashed()->get();
         return view('shops.index')->with('shops', $trashed);
     }
